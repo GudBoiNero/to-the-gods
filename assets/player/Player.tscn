@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl1ipe0y08a1t"]
+
+[ext_resource type="Script" path="res://assets/player/Player.cs" id="1_bohsx"]
+[ext_resource type="Texture2D" uid="uid://20p4e752b6ml" path="res://icon.svg" id="2_nj75q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4youx"]
+size = Vector2(14, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f58o5"]
+size = Vector2(20, 8)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hurtboxArea", "hurtboxCollider", "sprite", "collider")]
+script = ExtResource("1_bohsx")
+hurtboxArea = NodePath("Hurtbox")
+hurtboxCollider = NodePath("Hurtbox/Collider")
+sprite = NodePath("Sprite")
+collider = NodePath("Collider")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(-3.8147e-06, -8)
+scale = Vector2(0.15625, 0.15625)
+texture = ExtResource("2_nj75q")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4youx")
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+enabled = false
+position_smoothing_enabled = true
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="Collider" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_f58o5")
+debug_color = Color(0.854902, 0.321569, 0.470588, 0.419608)
