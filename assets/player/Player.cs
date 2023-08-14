@@ -15,8 +15,8 @@ public partial class Player : LivingEntity
     [Export]
     public float RollFriction = 0.2f;
 
-    public enum PlayerState {}
-    private PlayerStateMachine stateMachine = new();
+    public enum PlayerState { FREE, ROLL, ATTACK, STANCE };
+    private PlayerStateMachine stateMachine;
 
     private int spriteSheetRow = 0;
     public int SpriteSheetRow
@@ -26,6 +26,10 @@ public partial class Player : LivingEntity
             spriteSheetRow = GetSpriteSheetRow();
             return spriteSheetRow;
         }
+    }
+
+    public Player() {
+        stateMachine = new(this, PlayerState.FREE);
     }
 
     public override void _Ready()
@@ -97,10 +101,16 @@ public partial class Player : LivingEntity
     public override int GetSpriteDirection()
     {
         float xInput = Input.GetVector("left", "right", "up", "down").X;
-        return xInput != 0 ? (int)Math.Round(xInput) : GetCurrentSpriteDirection;
+        return xInput != 0 ? (int) Math.Round(xInput) : GetCurrentSpriteDirection;
     }
 
     private class PlayerStateMachine : StateMachine<PlayerState> {
+        private Player player;
 
+        public PlayerStateMachine(Player player, PlayerState startState) {
+            this.State = startState;
+            this.player = player;
+        }
+        
     }
 }
