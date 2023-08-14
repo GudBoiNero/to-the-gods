@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2n8wvd38wv5y"]
+[gd_scene load_steps=3 format=3 uid="uid://c2n8wvd38wv5y"]
 
 [ext_resource type="PackedScene" uid="uid://dl1ipe0y08a1t" path="res://assets/player/Player.tscn" id="1_l4i3m"]
+[ext_resource type="TileSet" uid="uid://ce4j7gyjff82v" path="res://assets/Tiles.tres" id="2_bp3mq"]
 
 [node name="World" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_l4i3m")]
 
 [node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_bp3mq")
 format = 2

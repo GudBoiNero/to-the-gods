@@ -1,0 +1,22 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://ce4j7gyjff82v"]
+
+[ext_resource type="Texture2D" uid="uid://bdjiqivs5x4em" path="res://resources/tiles/wall.png" id="1_hskcl"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4tqfq"]
+resource_name = "wall"
+texture = ExtResource("1_hskcl")
+
+[resource]
+physics_layer_0/collision_layer = 4
+terrain_set_0/mode = 2
+terrain_set_0/terrain_0/name = "Grass"
+terrain_set_0/terrain_0/color = Color(0.219608, 0.443137, 0.266667, 1)
+terrain_set_0/terrain_1/name = "Dirt"
+terrain_set_0/terrain_1/color = Color(0.54902, 0.415686, 0.243137, 1)
+terrain_set_0/terrain_2/name = "Water"
+terrain_set_0/terrain_2/color = Color(0.223529, 0.313726, 0.380392, 1)
+terrain_set_0/terrain_3/name = "Wall"
+terrain_set_0/terrain_3/color = Color(0.235294, 0.266667, 0.278431, 1)
+terrain_set_0/terrain_4/name = "Stairs"
+terrain_set_0/terrain_4/color = Color(0.431373, 0.427451, 0.439216, 1)
+sources/0 = SubResource("TileSetAtlasSource_4tqfq")

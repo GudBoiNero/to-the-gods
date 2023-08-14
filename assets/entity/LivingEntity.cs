@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.ComponentModel;
+
 public partial class LivingEntity : Entity
 {
     [Export]
@@ -35,7 +37,7 @@ public partial class LivingEntity : Entity
 
     public override void _PhysicsProcess(double delta)
     {
-        base._Process(delta);
+        base._PhysicsProcess(delta);
 
         if (!IsDead) _LivingPhysicsProcess(delta);
     }
@@ -50,15 +52,9 @@ public partial class LivingEntity : Entity
         hurtboxArea.Connect(Area2D.SignalName.AreaEntered, new(this, "Hit"));
     }
 
-    public virtual void _LivingPhysicsProcess(double delta)
-    {
+    public virtual void _LivingPhysicsProcess(double delta) {}
 
-    }
-
-    public virtual void _LivingProcess(double delta)
-    {
-
-    }
+    public virtual void _LivingProcess(double delta) {}
 
     public virtual void Hit()
     {

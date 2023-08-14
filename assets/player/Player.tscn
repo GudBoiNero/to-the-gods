@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://dl1ipe0y08a1t"]
 
 [ext_resource type="Script" path="res://assets/player/Player.cs" id="1_bohsx"]
-[ext_resource type="Texture2D" uid="uid://20p4e752b6ml" path="res://icon.svg" id="2_nj75q"]
+[ext_resource type="Texture2D" uid="uid://dir1kj5hfs6v2" path="res://resources/player/player-sheet.png" id="2_6bjfx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4youx"]
-size = Vector2(14, 6)
+size = Vector2(8, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f58o5"]
-size = Vector2(20, 8)
+size = Vector2(12, 8)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hurtboxArea", "hurtboxCollider", "sprite", "collider")]
 script = ExtResource("1_bohsx")
@@ -17,19 +17,21 @@ sprite = NodePath("Sprite")
 collider = NodePath("Collider")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(-3.8147e-06, -8)
-scale = Vector2(0.15625, 0.15625)
-texture = ExtResource("2_nj75q")
+position = Vector2(-0.5, -6)
+texture = ExtResource("2_6bjfx")
+hframes = 10
+vframes = 5
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+z_index = -1
 shape = SubResource("RectangleShape2D_4youx")
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
-enabled = false
 position_smoothing_enabled = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
 
 [node name="Collider" type="CollisionShape2D" parent="Hurtbox"]
+z_index = -1
 shape = SubResource("RectangleShape2D_f58o5")
 debug_color = Color(0.854902, 0.321569, 0.470588, 0.419608)
