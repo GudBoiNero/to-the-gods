@@ -15,6 +15,9 @@ public partial class Player : LivingEntity
     [Export]
     public float RollFriction = 0.2f;
 
+    public enum PlayerState {}
+    private PlayerStateMachine stateMachine = new();
+
     private int spriteSheetRow = 0;
     public int SpriteSheetRow
     {
@@ -28,6 +31,8 @@ public partial class Player : LivingEntity
     public override void _Ready()
     {
         base._Ready();
+
+        AddChild(stateMachine);
     }
 
     public override void _UnhandledInput(InputEvent inputEvent)
@@ -43,7 +48,6 @@ public partial class Player : LivingEntity
     {
         Vector2 input = Input.GetVector("left", "right", "up", "down");
 
-        GD.Print(input);
         // If left or right
         if (Math.Abs(input.X) > 0)
         {
@@ -94,5 +98,9 @@ public partial class Player : LivingEntity
     {
         float xInput = Input.GetVector("left", "right", "up", "down").X;
         return xInput != 0 ? (int)Math.Round(xInput) : GetCurrentSpriteDirection;
+    }
+
+    private class PlayerStateMachine : StateMachine<PlayerState> {
+
     }
 }
