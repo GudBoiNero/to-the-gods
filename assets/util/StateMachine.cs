@@ -4,6 +4,7 @@ using System;
 public partial class StateMachine<TState> : Node where TState : Enum
 {
     private TState state;
+    private TState previousState;
     public TState State
     {
         get { return state; }
@@ -12,10 +13,28 @@ public partial class StateMachine<TState> : Node where TState : Enum
             TState oldState = state;
             TState newState = value;
 
+            previousState = oldState;
+
             _Enter(oldState, newState);
             state = _ChangeState(oldState, newState);
             _Exit(oldState, newState);
         }
+    }
+    public TState PreviousState {
+        get { return previousState; }
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        State = _StateProcess(delta, State, state);
+    }
+
+    public virtual TState _StateProcess(double delta, TState oldstate, TState newstate) {
+        return newstate;
+    }
+
+    public virtual TState _StatePhysicsProcess(double delta, TState oldstate, TState newstate) {
+        return newstate;
     }
 
     public virtual void _Enter(TState oldstate, TState newState) { }

@@ -11,7 +11,15 @@ public partial class LivingEntity : Entity
 
     [ExportGroup("Combat")]
     [Export]
+    public int startingHealth = 1;
+    [Export]
     public float KnockbackResistance = 0.2f;
+
+    private int health;
+    public int Health {
+        get { return health; }
+        private set { health = value; }
+    }
 
     private bool isDead;
     public bool IsDead
@@ -26,7 +34,10 @@ public partial class LivingEntity : Entity
         get { return isInvulnerable; }
     }
 
-    public LivingEntity() { }
+    public LivingEntity() 
+    {
+        Health = startingHealth;
+    }
 
     public override void _Process(double delta)
     {
@@ -52,16 +63,21 @@ public partial class LivingEntity : Entity
         hurtboxArea.Connect(Area2D.SignalName.AreaEntered, new(this, "Hit"));
     }
 
-    public virtual void _LivingPhysicsProcess(double delta) {}
+    public virtual void _LivingPhysicsProcess(double delta) { }
 
-    public virtual void _LivingProcess(double delta) {}
+    public virtual void _LivingProcess(double delta) { }
 
     public virtual void Hit()
     {
         if (IsInvulnerable) return;
 
-        isDead = true;
-        OnDeath();
+        Health -= 1;
+
+        if (Health <= 0) 
+        {
+            isDead = true;
+            OnDeath();
+        }
     }
 
     public virtual void OnDeath()
@@ -73,7 +89,7 @@ public partial class LivingEntity : Entity
     {
         return (uint)Math.Pow(2, 1 - 1);
     }
-    
+
     public virtual uint GetHurtboxCollisionLayer()
     {
         return (uint)Math.Pow(2, 1 - 1);
