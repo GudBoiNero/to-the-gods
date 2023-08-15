@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dl1ipe0y08a1t"]
+[gd_scene load_steps=6 format=3 uid="uid://dl1ipe0y08a1t"]
 
 [ext_resource type="Script" path="res://assets/player/Player.cs" id="1_bohsx"]
 [ext_resource type="Texture2D" uid="uid://dir1kj5hfs6v2" path="res://resources/player/player-sheet.png" id="2_6bjfx"]
+[ext_resource type="Texture2D" uid="uid://c6lxtjrvqp6a2" path="res://resources/player/sword-sheet.png" id="3_j6okq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4youx"]
 size = Vector2(8, 4)
@@ -9,12 +10,16 @@ size = Vector2(8, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f58o5"]
 size = Vector2(12, 8)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hurtboxArea", "hurtboxCollider", "sprite", "collider")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animator", "swordSprite", "hurtboxArea", "hurtboxCollider", "sprite", "collider")]
 script = ExtResource("1_bohsx")
+animator = NodePath("Animator")
+swordSprite = NodePath("SwordSprite")
 hurtboxArea = NodePath("Hurtbox")
 hurtboxCollider = NodePath("Hurtbox/Collider")
 sprite = NodePath("Sprite")
 collider = NodePath("Collider")
+
+[node name="Animator" type="AnimationPlayer" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-0.5, -6)
@@ -22,11 +27,19 @@ texture = ExtResource("2_6bjfx")
 hframes = 10
 vframes = 5
 
+[node name="SwordSprite" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-0.5, -6)
+texture = ExtResource("3_j6okq")
+hframes = 10
+vframes = 8
+
 [node name="Collider" type="CollisionShape2D" parent="."]
 z_index = -1
 shape = SubResource("RectangleShape2D_4youx")
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
