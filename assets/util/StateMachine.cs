@@ -26,7 +26,16 @@ public partial class StateMachine<TState> : Node where TState : Enum
 
     public override void _PhysicsProcess(double delta)
     {
-        State = _StateProcess(delta, State, state);
+        base._PhysicsProcess(delta);
+
+        State = _StatePhysicsProcess(delta, previousState, state);
+    }
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+
+        State = _StateProcess(delta, previousState, state);
     }
 
     public virtual TState _StateProcess(double delta, TState oldstate, TState newstate) {
